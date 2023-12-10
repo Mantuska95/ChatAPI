@@ -21,6 +21,9 @@ public class Message {
     @Column(name = "content", nullable = false)
     private String content;
 
+    @Column(name = "timestamp", nullable = false)
+    private LocalDateTime timestamp;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
