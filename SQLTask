@@ -1,0 +1,8 @@
+Pagal aukščiau pavaizduotą struktūrą parašykite sekančias SQL užklausas:
+    1. Atrinkti TOP5 prekes, kurios duoda daugausiai pajamų
+
+SELECT bill_item_id, SUM(quantity) AS total_sold
+FROM bill_item
+GROUP BY amount
+ORDER BY total_sold DESC
+LIMIT 5;
