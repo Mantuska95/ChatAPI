@@ -5,17 +5,16 @@ import ignitis.chat2.services.MessageService;
 import ignitis.chat2.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@PreAuthorize("hasRole('ADMIN')")
 @RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private MessageService messageService;
 
     @PostMapping("/create")
     public ResponseEntity<User> createUser(@RequestBody User user) {
@@ -35,6 +34,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @PostMapping("/joinChatRoom/{userId}/{chatRoomId}")
     public ResponseEntity<Void> joinChatRoom(@PathVariable Long userId, @PathVariable Long chatRoomId) {
         userService.joinChatRoom(userId, chatRoomId);
